@@ -18,41 +18,48 @@ const JobCard = ({ job, isNew }) => {
 
     return (
         <div className={`
-            block bg-slate-900/50 backdrop-blur-sm border p-5 rounded-lg transition-all duration-300
+            block bg-white border p-5 rounded-xl transition-all duration-300
             ${isNew
-                ? 'border-indigo-500/40 bg-indigo-500/5 shadow-[0_0_15px_-3px_rgba(99,102,241,0.2)]'
-                : 'border-white/10 hover:border-white/20 hover:bg-white/5'
+                ? 'border-primary-200 shadow-md ring-1 ring-primary-50 relative overflow-hidden'
+                : 'border-slate-200 hover:border-primary-300 hover:shadow-soft'
             }
         `}>
-            <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-indigo-400">def</span>
-                    <h3 className="font-bold text-slate-200 text-sm">{job.title}</h3>
-                </div>
-                {isNew && (
-                    <span className="flex h-2 w-2 relative">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            {isNew && (
+                <div className="absolute top-0 right-0 p-1.5">
+                    <span className="flex h-2.5 w-2.5 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-500"></span>
                     </span>
-                )}
-            </div>
+                </div>
+            )}
 
-            <div className="mb-4">
-                <p className="text-slate-400 text-sm mb-1">{job.company}</p>
-                <div className="flex gap-3 text-xs text-slate-500 font-mono">
-                    <span>{job.location}</span>
-                    <span>|</span>
-                    <span>{job.type}</span>
+            <div className="flex justify-between items-start mb-2">
+                <div>
+                    <h3 className="font-bold text-slate-900 text-sm md:text-base leading-snug group-hover:text-primary-700 transition-colors">
+                        {job.title}
+                    </h3>
+                    <p className="text-slate-500 text-xs font-semibold uppercase tracking-wide mt-1">{job.company}</p>
                 </div>
             </div>
 
-            <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                <span className="text-xs font-mono text-slate-600">{timeString} ago</span>
+            <div className="flex flex-wrap gap-2 my-3">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600">
+                    <MapPin className="w-3 h-3 mr-1 text-slate-400" /> {job.location}
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600">
+                    <Briefcase className="w-3 h-3 mr-1 text-slate-400" /> {job.type}
+                </span>
+            </div>
+
+            <div className="flex items-center justify-between pt-3 border-t border-slate-100 mt-2">
+                <span className="text-xs text-slate-400 font-medium flex items-center">
+                    <Clock className="w-3 h-3 mr-1" /> {timeString} ago
+                </span>
                 <a
                     href={job.url}
-                    className="text-xs font-mono text-indigo-400 hover:text-indigo-300 flex items-center gap-1 group"
+                    className="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1 group"
                 >
-                    apply() <ExternalLink className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
+                    Apply Now <ExternalLink className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
             </div>
         </div>

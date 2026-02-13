@@ -1,80 +1,94 @@
 import React from 'react';
-import { Target, ShieldCheck, Heart, Sparkles, Code2 } from 'lucide-react';
+import { Target, ShieldCheck, Heart, Users, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 
 const About = () => {
     return (
-        <div className="min-h-screen py-20 relative overflow-hidden">
+        <div className="min-h-screen pb-20 bg-slate-50">
             <SEO
-                title="About Us"
+                title="About Us - HireLand"
                 description="We help job seekers in Ireland find the best companies to work for. Ethical, transparent, and community-driven."
             />
 
-            {/* Background blob for visual interest */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-violet-900/10 rounded-full blur-[100px] -z-10 -translate-x-1/2 translate-y-1/2" />
+            {/* Hero Section */}
+            <div className="bg-white border-b border-slate-200 pt-20 pb-16">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                            Connecting Talent with <br />
+                            <span className="text-primary-600">Opportunity in Ireland</span>
+                        </h1>
+                        <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                            HireLand is the definitive directory of companies hiring in Ireland.
+                            We believe in direct connections, transparency, and empowering job seekers.
+                        </p>
+                    </motion.div>
+                </div>
+            </div>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-20"
-                >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono mb-6">
-                        <Code2 className="w-3 h-3" />
-                        <span>Manifesto v1.0</span>
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-100 mb-6 leading-tight">
-                        About <span className="text-indigo-500">HireLand_</span>
-                    </h1>
-                    <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
-                        Bridging the gap between Ireland's top talent and its most innovative companies.
-                        <br /> <span className="text-indigo-400 font-mono text-sm">No recruiters. Direct connection.</span>
-                    </p>
-                </motion.div>
-
-                <div className="grid gap-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div className="grid md:grid-cols-3 gap-8">
                     {[
                         {
                             icon: Target,
-                            color: "indigo",
                             title: "Our Mission",
-                            desc: "To provide a transparent, curated, and easy-to-use platform for job seekers in Ireland to discover companies that are hiring. We start by connecting people directly to the source—official career pages."
+                            desc: "To provide a transparent, curated, and easy-to-use platform for job seekers in Ireland. We remove the middleman and connect you directly to official career pages."
                         },
                         {
                             icon: ShieldCheck,
-                            color: "emerald",
-                            title: "Ethical Data Usage",
-                            desc: "We prioritize privacy. All company information listed on HireLand is curated from publicly available sources like official websites and LinkedIn. We do not scrape personal data or share your info."
+                            title: "Verified Data",
+                            desc: "We prioritize privacy and accuracy. All company information listed on HireLand is curated from publicly available sources. We do not scrape personal data."
                         },
                         {
-                            icon: Heart,
-                            color: "rose",
-                            title: "Community Driven",
-                            desc: "Built for the community, by the community. We support both established MNCs and the vibrant startup ecosystem in Ireland, giving visibility to great teams regardless of their size."
+                            icon: Users,
+                            title: "Community First",
+                            desc: "Built for the community. We support both established MNCs and the vibrant startup ecosystem in Ireland, giving visibility to great teams regardless of their size."
                         }
                     ].map((item, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="bg-slate-900/50 backdrop-blur-md rounded-lg p-8 border border-white/10 hover:border-indigo-500/30 flex flex-col md:flex-row gap-8 items-start transition-all duration-300 group"
+                            className="bg-white rounded-xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
                         >
-                            <div className={`p-4 rounded-md flex-shrink-0 bg-${item.color}-500/10 text-${item.color}-400 border border-${item.color}-500/20 group-hover:bg-${item.color}-500/20 transition-colors`}>
-                                <item.icon className="w-6 h-6" />
+                            <div className="w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center mb-6">
+                                <item.icon className="w-6 h-6 text-primary-600" />
                             </div>
-                            <div>
-                                <h2 className="text-xl font-display font-bold text-slate-200 mb-3 group-hover:text-indigo-400 transition-colors">{item.title}</h2>
-                                <p className="text-slate-400 leading-relaxed font-light">
-                                    {item.desc}
-                                </p>
-                            </div>
+                            <h2 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h2>
+                            <p className="text-slate-500 leading-relaxed text-sm">
+                                {item.desc}
+                            </p>
                         </motion.div>
                     ))}
+                </div>
+
+                <div className="mt-20 bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div className="grid md:grid-cols-2">
+                        <div className="p-12 flex flex-col justify-center">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6">Built for the future of work.</h2>
+                            <p className="text-slate-500 mb-6 leading-relaxed">
+                                The recruitment landscape is changing. HireLand is designed to be the modern operating system for your job search in Ireland.
+                                Fast, clean, and direct.
+                            </p>
+                            <div className="flex items-center gap-2 text-primary-600 font-semibold">
+                                <Globe className="w-5 h-5" />
+                                <span>Based in Dublin, Ireland</span>
+                            </div>
+                        </div>
+                        <div className="bg-slate-50 p-12 flex items-center justify-center border-l border-slate-100">
+                            <div className="text-center">
+                                <div className="text-5xl font-bold text-slate-900 mb-2">500+</div>
+                                <div className="text-slate-500 font-medium">Companies Listed</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

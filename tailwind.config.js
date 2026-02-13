@@ -13,47 +13,41 @@ export default {
       colors: {
         primary: {
           50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a', // Deep corporate blue
+          950: '#172554',
         },
-        tech: {
-          50: '#f0f4ff',
-          100: '#e0eaff',
-          200: '#c7d9ff',
-          300: '#a3c0ff',
-          400: '#7a9eff',
-          500: '#4f7aff',
-          600: '#2f55eb',
-          700: '#2441c9',
-          800: '#2336a1',
-          900: '#213080',
-          950: '#0b0f2e', // Deep background
+        slate: {
+          850: '#151f32', // Custom dark slate for specific high-contrast needs
         }
+      },
+      boxShadow: {
+        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+        'card': '0 0 0 1px rgba(0,0,0,0.03), 0 2px 8px rgba(0,0,0,0.04)',
+        'card-hover': '0 0 0 1px rgba(0,0,0,0.03), 0 8px 16px rgba(0,0,0,0.08)',
       },
       animation: {
-        'blob': 'blob 7s infinite',
-        'cursor': 'cursor .75s step-end infinite',
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
       },
       keyframes: {
-        blob: {
-          '0%': { transform: 'translate(0px, 0px) scale(1)' },
-          '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        cursor: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        }
-      }
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],

@@ -1,44 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
+
+    // Handle scroll effect for sticky header
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const isActive = (path) => location.pathname === path;
 
+    const navLinks = [
+        { name: 'Home', path: '/' },
+        { name: 'Jobs', path: '/jobs' },
+        { name: 'Companies', path: '/companies' },
+        { name: 'About', path: '/about' },
+    ];
+
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/80 backdrop-blur-md">
+        <header
+            className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled || isMenuOpen
+                ? 'bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm'
+                : 'bg-transparent border-b border-transparent'
+                }`}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+                <div className="flex justify-between items-center h-16 md:h-20">
                     {/* Logo */}
-                    <div className="flex items-center">
-                        <Link to="/" className="flex items-center gap-2 group">
-                            <div className="bg-indigo-600/10 p-2 rounded-md border border-indigo-500/20 group-hover:bg-indigo-600/20 transition-colors">
-                                <Code2 className="w-5 h-5 text-indigo-400" />
-                            </div>
-                            <span className="text-lg font-bold text-slate-100 tracking-tight font-display">HireLand<span className="text-indigo-500">_</span></span>
-                        </Link>
-                    </div>
+                    <Link to="/" className="flex items-center group">
+                        <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center mr-2.5 shadow-md shadow-primary-200 group-hover:scale-105 transition-transform duration-200">
+                            <span className="text-white font-bold text-xl leading-none">H</span>
+                        </div>
+                        <span className="text-xl font-bold text-slate-900 tracking-tight">
+                            Hire<span className="text-primary-600">Land</span>
+                        </span>
+                    </Link>
 
                     {/* Desktop Nav */}
-                    <nav className="hidden md:flex space-x-1">
-                        {[
-                            { name: 'Start', path: '/' },
-                            { name: 'Companies', path: '/companies' }, // Placeholder path
-                            { name: 'About', path: '/about' },
-                        ].map((item) => (
+                    <nav className="hidden md:flex items-center space-x-1 bg-slate-50/50 p-1 rounded-full border border-slate-200/50">
+                        {navLinks.map((item) => (
                             <Link
                                 key={item.name}
                                 to={item.path}
-                                className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${isActive(item.path)
-                                        ? 'text-white bg-white/5'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-200 ${isActive(item.path)
+                                    ? 'bg-white text-primary-700 shadow-sm ring-1 ring-slate-200'
+                                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                                     }`}
                             >
-                                <span className="font-mono text-indigo-500/50 mr-2 opacity-0 hover:opacity-100 transition-opacity">./</span>
                                 {item.name}
                             </Link>
                         ))}
@@ -46,26 +63,28 @@ const Header = () => {
 
                     {/* CTA */}
                     <div className="hidden md:flex items-center gap-4">
-                        <Link to="/signin" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                            Sign In
+                        <Link
+                            to="/signin"
+                            className="text-sm font-semibold text-slate-600 hover:text-primary-600 transition-colors"
+                        >
+                            Log in
                         </Link>
                         <Link
-                            to="/post-job"
-                            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-md transition-colors border border-indigo-500/50 shadow-lg shadow-indigo-900/20"
+                            to="/submit"
+                            className="group inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-primary-900 hover:bg-primary-800 rounded-lg shadow-soft hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
                         >
-                            Post a Job
+                            Submit Company
+                            <ChevronRight className="w-4 h-4 ml-1 opacity-70 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="p-2 text-slate-400 hover:text-white"
-                        >
-                            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="md:hidden p-2 text-slate-600 hover:text-primary-600 rounded-md hover:bg-slate-50 transition-colors"
+                    >
+                        {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
                 </div>
             </div>
 
@@ -76,14 +95,35 @@ const Header = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden border-b border-white/10 bg-slate-950"
+                        className="md:hidden border-b border-slate-200 bg-white"
                     >
-                        <div className="px-4 py-4 space-y-1">
-                            <Link to="/" className="block px-3 py-2 text-base font-medium text-white bg-white/5 rounded-md">Find Companies</Link>
-                            <Link to="/about" className="block px-3 py-2 text-base font-medium text-slate-400 hover:text-white hover:bg-white/5 rounded-md">About</Link>
-                            <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-3">
-                                <Link to="/signin" className="text-center text-slate-400 hover:text-white">Sign In</Link>
-                                <Link to="/post-job" className="w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-md font-medium">Post a Job</Link>
+                        <div className="px-4 py-6 space-y-4">
+                            {navLinks.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    to={item.path}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${isActive(item.path)
+                                        ? 'bg-primary-50 text-primary-700'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                        }`}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                            <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
+                                <Link
+                                    to="/signin"
+                                    className="w-full px-4 py-3 text-center text-slate-600 font-semibold hover:bg-slate-50 rounded-lg"
+                                >
+                                    Log in
+                                </Link>
+                                <Link
+                                    to="/submit"
+                                    className="w-full px-4 py-3 text-center text-white bg-primary-600 hover:bg-primary-700 rounded-lg font-semibold shadow-soft"
+                                >
+                                    Submit Company
+                                </Link>
                             </div>
                         </div>
                     </motion.div>

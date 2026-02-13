@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ArrowRight, Terminal } from 'lucide-react';
+import { Search, ArrowRight, TrendingUp, Building2, Users, CheckCircle2 } from 'lucide-react';
 import SEO from '../components/SEO';
 import CompanyCard from '../components/CompanyCard';
 import JobCard from '../components/JobCard';
@@ -64,155 +64,167 @@ const Home = () => {
         });
     }, [searchTerm, selectedIndustry, selectedType]);
 
+    // Stats
+    const totalCompanies = companiesData.length;
+    const activeHiring = companiesData.filter(c => c.hiringStatus === 'Actively Hiring').length;
+
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-slate-50">
             <SEO
-                title="Find Hiring Companies in Ireland"
-                description="Discover the best startups and MNCs hiring in Ireland. Connect directly with official careers pages."
-                keywords="jobs ireland, tech jobs dublin, startups ireland, hiring companies"
+                title="SaaS Jobs Ireland - Discovery Hiring Companies"
+                description="The premium platform for discovering top startups and MNCs hiring in Ireland."
             />
 
             {/* Hero Section */}
-            <section className="relative pt-24 pb-20 border-b border-white/5">
+            <section className="relative pt-24 pb-20 overflow-hidden bg-white border-b border-slate-200">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white via-white/80 to-transparent"></div>
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
                         >
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono mb-6">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                                </span>
-                                v2.0.0 Online
-                            </div>
-                            <h1 className="text-5xl md:text-7xl font-display font-bold text-slate-100 tracking-tight mb-6 leading-tight">
-                                The <span className="text-indigo-500">OS</span> for <br />
-                                Irish Jobs.
+                            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary-50 text-primary-700 text-xs font-bold uppercase tracking-wider mb-6 border border-primary-100">
+                                <span className="w-2 h-2 rounded-full bg-primary-600 mr-2 animate-pulse"></span>
+                                Live Recruitment Data
+                            </span>
+                            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 tracking-tight mb-6 leading-[1.1]">
+                                Discover Hiring Companies <br />
+                                <span className="text-primary-600">in Ireland.</span>
                             </h1>
-                            <p className="text-lg text-slate-400 max-w-lg mb-8 leading-relaxed font-light">
-                                Direct connection protocols to official career nodes. <br />
-                                Bypass recruitment layers. Zero latency.
+                            <p className="text-xl text-slate-500 mb-10 leading-relaxed">
+                                The most accurate, verified directory of Startups and MNCs recruiting top talent.
+                                <br />Connect directly with HR teams. No third-party recruiters.
                             </p>
 
-                            <div className="flex gap-4">
-                                <button className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-md transition-all shadow-lg shadow-indigo-900/20 border border-indigo-500/50">
-                                    Initialize Search
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button onClick={() => document.getElementById('directory').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-soft hover:shadow-lg transition-all duration-200 text-lg">
+                                    Explore Companies
                                 </button>
-                                <button className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 font-medium rounded-md transition-all border border-white/10 flex items-center gap-2">
-                                    <Terminal className="w-4 h-4" /> Documentation
+                                <button className="px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-lg border border-slate-200 shadow-sm transition-all duration-200 text-lg">
+                                    View Live Jobs
                                 </button>
                             </div>
                         </motion.div>
+                    </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8 }}
-                            className="relative hidden lg:block"
-                        >
-                            <div className="absolute inset-0 bg-indigo-500/5 blur-3xl rounded-full" />
-                            <div className="relative bg-slate-900 border border-white/10 rounded-lg p-6 font-mono text-sm text-slate-400 shadow-2xl">
-                                <div className="flex gap-2 mb-4 border-b border-white/10 pb-4">
-                                    <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
-                                    <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50" />
-                                </div>
-                                <div className="space-y-2">
-                                    <p><span className="text-green-400">➜</span> <span className="text-indigo-400">~</span> init_sequence --region=IE</p>
-                                    <p className="text-slate-500">Loading modules...</p>
-                                    <p>Found <span className="text-white">{filteredCompanies.length}</span> active nodes.</p>
-                                    <p>Syncing job feed... <span className="text-green-400">Done</span></p>
-                                    <p className="animate-pulse">_</p>
-                                </div>
+                    {/* Dashboard Stats */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <div className="p-3 bg-blue-50 text-blue-600 rounded-lg">
+                                <Building2 className="w-6 h-6" />
                             </div>
-                        </motion.div>
+                            <div>
+                                <p className="text-2xl font-bold text-slate-900">{totalCompanies}</p>
+                                <p className="text-sm text-slate-500 font-medium">Verified Companies</p>
+                            </div>
+                        </div>
+                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <div className="p-3 bg-emerald-50 text-emerald-600 rounded-lg">
+                                <TrendingUp className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <p className="text-2xl font-bold text-slate-900">{activeHiring}</p>
+                                <p className="text-sm text-slate-500 font-medium">Actively Hiring</p>
+                            </div>
+                        </div>
+                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <div className="p-3 bg-violet-50 text-violet-600 rounded-lg">
+                                <Users className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <p className="text-2xl font-bold text-slate-900">12k+</p>
+                                <p className="text-sm text-slate-500 font-medium">Monthly Seekers</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Main Content */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-20">
+            {/* Live Feed & Directory Section */}
+            <section id="directory" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-                {/* Live Feed Section */}
-                <div className="mb-20">
-                    <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-                        <div className="flex items-center gap-3">
-                            <h2 className="text-xl font-display font-bold text-slate-100">Live Feed</h2>
-                            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                                REALTIME
-                            </span>
-                        </div>
-                        <div className="text-xs font-mono text-slate-500">
-                            Polling interval: 10000ms
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {/* Sidebar / Live Feed */}
+                    <div className="lg:col-span-4 space-y-8">
+                        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden sticky top-24">
+                            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                                <h3 className="font-bold text-slate-900 flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div> Live Job Feed
+                                </h3>
+                                <span className="text-xs font-mono text-slate-400">Polling...</span>
+                            </div>
+                            <div className="p-4 max-h-[600px] overflow-y-auto space-y-4 custom-scrollbar">
+                                <AnimatePresence mode="popLayout">
+                                    {jobs.slice(0, 5).map((job) => (
+                                        <motion.div
+                                            key={job.id}
+                                            layout
+                                            initial={{ opacity: 0, y: -20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, scale: 0.95 }}
+                                        >
+                                            <JobCard job={job} isNew={newJobIds.has(job.id)} />
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                                {jobs.length === 0 && (
+                                    <div className="py-8 text-center text-slate-500 text-sm">
+                                        Connecting to job stream...
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <AnimatePresence mode="popLayout">
-                            {jobs.slice(0, 6).map((job) => (
-                                <motion.div
-                                    key={job.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <JobCard job={job} isNew={newJobIds.has(job.id)} />
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
+                    {/* Main Directory */}
+                    <div className="lg:col-span-8">
+                        <div className="mb-8">
+                            <h2 className="text-2xl font-bold text-slate-900 mb-2">Company Directory</h2>
+                            <p className="text-slate-500">Browse and filter {filteredCompanies.length} companies.</p>
+                        </div>
+
+                        <FilterBar
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                            selectedIndustry={selectedIndustry}
+                            setSelectedIndustry={setSelectedIndustry}
+                            selectedType={selectedType}
+                            setSelectedType={setSelectedType}
+                            industries={industries}
+                            types={types}
+                        />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {filteredCompanies.length > 0 ? (
+                                filteredCompanies.map((company, index) => (
+                                    <motion.div
+                                        key={company.id}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.2, delay: index * 0.05 }}
+                                    >
+                                        <CompanyCard company={company} />
+                                    </motion.div>
+                                ))
+                            ) : (
+                                <div className="col-span-full py-20 text-center bg-white rounded-xl border border-dashed border-slate-200">
+                                    <Search className="w-10 h-10 text-slate-300 mx-auto mb-4" />
+                                    <h3 className="text-lg font-medium text-slate-900 mb-2">No companies found</h3>
+                                    <p className="text-slate-500 mb-6">Try adjusting your filters or search terms.</p>
+                                    <button
+                                        onClick={() => { setSearchTerm(''); setSelectedIndustry(''); setSelectedType(''); }}
+                                        className="text-primary-600 font-medium hover:text-primary-700 hover:underline"
+                                    >
+                                        Clear all filters
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    {jobs.length === 0 && (
-                        <div className="p-12 text-center border border-dashed border-white/10 rounded-lg">
-                            <p className="text-slate-500 font-mono text-sm">Waiting for signal...</p>
-                        </div>
-                    )}
-                </div>
-
-                <div className="flex items-center gap-3 mb-8">
-                    <h2 className="text-2xl font-display font-bold text-slate-100">Directory</h2>
-                    <span className="text-slate-500 text-sm font-mono">/ {filteredCompanies.length} items</span>
-                </div>
-
-                <FilterBar
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    selectedIndustry={selectedIndustry}
-                    setSelectedIndustry={setSelectedIndustry}
-                    selectedType={selectedType}
-                    setSelectedType={setSelectedType}
-                    industries={industries}
-                    types={types}
-                />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                    {filteredCompanies.length > 0 ? (
-                        filteredCompanies.map((company, index) => (
-                            <motion.div
-                                key={company.id}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.2, delay: index * 0.05 }}
-                            >
-                                <CompanyCard company={company} />
-                            </motion.div>
-                        ))
-                    ) : (
-                        <div className="col-span-full py-20 text-center border border-dashed border-white/10 rounded-lg">
-                            <Search className="w-8 h-8 text-slate-600 mx-auto mb-4" />
-                            <h3 className="text-lg font-medium text-slate-300 mb-2">No results returned</h3>
-                            <button
-                                onClick={() => { setSearchTerm(''); setSelectedIndustry(''); setSelectedType(''); }}
-                                className="text-indigo-400 hover:text-indigo-300 font-mono text-sm hover:underline"
-                            >
-                                &rarr; Reset filters
-                            </button>
-                        </div>
-                    )}
                 </div>
             </section>
         </div>
