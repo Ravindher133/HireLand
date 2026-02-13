@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Clock, Briefcase, ExternalLink, Building } from 'lucide-react';
+import { MapPin, Clock, Briefcase, ExternalLink, Terminal } from 'lucide-react';
 
 const JobCard = ({ job, isNew }) => {
     // Format date roughly
@@ -9,46 +9,52 @@ const JobCard = ({ job, isNew }) => {
 
     let timeString = 'Just now';
     if (diffInHours > 24) {
-        timeString = Math.floor(diffInHours / 24) + 'd ago';
+        timeString = Math.floor(diffInHours / 24) + 'd';
     } else if (diffInHours >= 1) {
-        timeString = Math.floor(diffInHours) + 'h ago';
+        timeString = Math.floor(diffInHours) + 'h';
     } else if (diffInHours * 60 > 1) {
-        timeString = Math.floor(diffInHours * 60) + 'm ago';
+        timeString = Math.floor(diffInHours * 60) + 'm';
     }
 
     return (
         <div className={`
-            bg-white rounded-xl border p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-500
-            ${isNew ? 'border-indigo-200 shadow-md shadow-indigo-100 ring-1 ring-indigo-100 scale-[1.02]' : 'border-slate-100 shadow-sm hover:shadow-md'}
+            block bg-slate-900/50 backdrop-blur-sm border p-5 rounded-lg transition-all duration-300
+            ${isNew
+                ? 'border-indigo-500/40 bg-indigo-500/5 shadow-[0_0_15px_-3px_rgba(99,102,241,0.2)]'
+                : 'border-white/10 hover:border-white/20 hover:bg-white/5'
+            }
         `}>
-            <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0 text-indigo-600">
-                    <Building className="w-6 h-6" />
+            <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono text-indigo-400">def</span>
+                    <h3 className="font-bold text-slate-200 text-sm">{job.title}</h3>
                 </div>
-                <div>
-                    <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
-                        {job.title}
-                        {isNew && (
-                            <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wider animate-pulse">
-                                New
-                            </span>
-                        )}
-                    </h3>
-                    <p className="text-slate-600 font-medium mb-1">{job.company}</p>
-                    <div className="flex flex-wrap gap-3 text-xs text-slate-500">
-                        <span className="flex items-center"><MapPin className="w-3 h-3 mr-1" />{job.location}</span>
-                        <span className="flex items-center"><Briefcase className="w-3 h-3 mr-1" />{job.type}</span>
-                        <span className="flex items-center"><Clock className="w-3 h-3 mr-1" />{timeString}</span>
-                    </div>
+                {isNew && (
+                    <span className="flex h-2 w-2 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    </span>
+                )}
+            </div>
+
+            <div className="mb-4">
+                <p className="text-slate-400 text-sm mb-1">{job.company}</p>
+                <div className="flex gap-3 text-xs text-slate-500 font-mono">
+                    <span>{job.location}</span>
+                    <span>|</span>
+                    <span>{job.type}</span>
                 </div>
             </div>
 
-            <a
-                href={job.url}
-                className="w-full sm:w-auto px-4 py-2 bg-white border border-slate-200 text-slate-600 font-medium rounded-lg hover:border-indigo-600 hover:text-indigo-600 transition-colors flex items-center justify-center gap-2 text-sm"
-            >
-                Apply Now <ExternalLink className="w-3 h-3" />
-            </a>
+            <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                <span className="text-xs font-mono text-slate-600">{timeString} ago</span>
+                <a
+                    href={job.url}
+                    className="text-xs font-mono text-indigo-400 hover:text-indigo-300 flex items-center gap-1 group"
+                >
+                    apply() <ExternalLink className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+            </div>
         </div>
     );
 };
