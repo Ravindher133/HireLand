@@ -1,0 +1,29 @@
+[
+    {
+        "id": 101,
+        "title": "Senior Frontend Engineer",
+        "company": "Stripe",
+        "location": "Dublin",
+        "type": "Full-time",
+        "postedAt": "2023-10-27T10:00:00Z",
+        "url": "https://stripe.com/jobs"
+    },
+    {
+        "id": 102,
+        "title": "Product Designer",
+        "company": "Intercom",
+        "location": "Dublin",
+        "type": "Full-time",
+        "postedAt": "2023-10-26T14:30:00Z",
+        "url": "https://www.intercom.com/careers"
+    },
+    {
+        "id": 103,
+        "title": "Backend Developer (Go)",
+        "company": "Tines",
+        "location": "Dublin",
+        "type": "Remote",
+        "postedAt": "2023-10-25T09:15:00Z",
+        "url": "https://www.tines.com/careers"
+    }
+]
