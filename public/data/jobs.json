@@ -1,38 +1,100 @@
 [
   {
-    "id": 1771009367810,
-    "title": "Cyber security Analyst",
-    "company": "Stripe",
-    "location": "Dublin",
-    "type": "Full-time",
-    "postedAt": "2026-02-13T19:02:47.810Z",
-    "url": "#"
-  },
-  {
     "id": 101,
-    "title": "Senior Frontend Engineer",
-    "company": "Stripe",
-    "location": "Dublin",
+    "title": "L1 SOC Analyst",
+    "company": "Integrity360",
+    "location": "Dublin, Ireland",
+    "salary": "€40,000 – €50,000 a year",
+    "posted": "Just now",
+    "applicants": "Be the first",
     "type": "Full-time",
-    "postedAt": "2023-10-27T10:00:00Z",
-    "url": "https://stripe.com/jobs"
+    "description": "Act as the first line of defense, monitoring and triaging security events. Great opportunity for career growth in a leading MSSP.",
+    "skills": [
+      "SIEM",
+      "Triage",
+      "Incident Response",
+      "Networking"
+    ],
+    "hrEmail": "careers@integrity360.com",
+    "applyUrl": "https://www.integrity360.com/careers",
+    "logo": null
   },
   {
     "id": 102,
-    "title": "Product Designer",
-    "company": "Intercom",
-    "location": "Dublin",
+    "title": "Cybersecurity Engineer",
+    "company": "Workday",
+    "location": "Dublin, Ireland (Hybrid)",
+    "salary": "€70,000 – €90,000 a year",
+    "posted": "2 hours ago",
+    "applicants": "40+ applicants",
     "type": "Full-time",
-    "postedAt": "2023-10-26T14:30:00Z",
-    "url": "https://www.intercom.com/careers"
+    "description": "Join our security team to build and maintain secure infrastructure. Experience with cloud security (AWS/GCP) and automation is key.",
+    "skills": [
+      "Cloud Security",
+      "Automation",
+      "Python",
+      "Incident Response"
+    ],
+    "hrEmail": "hr@workday.com",
+    "applyUrl": "https://workday.wd5.myworkdayjobs.com/Workday",
+    "logo": null
   },
   {
     "id": 103,
-    "title": "Backend Developer (Go)",
-    "company": "Tines",
-    "location": "Dublin",
-    "type": "Remote",
-    "postedAt": "2023-10-25T09:15:00Z",
-    "url": "https://www.tines.com/careers"
+    "title": "Cyber Defence Analyst",
+    "company": "Dunnes Stores",
+    "location": "Dublin, Ireland",
+    "salary": "€55,000 – €65,000 a year",
+    "posted": "5 hours ago",
+    "applicants": "15+ applicants",
+    "type": "Full-time",
+    "description": "Monitor security alerts, investigate incidents, and help improve our SOC procedures in a dynamic retail environment.",
+    "skills": [
+      "SOC",
+      "Threat Intelligence",
+      "Vulnerability Management",
+      "SIEM"
+    ],
+    "hrEmail": "recruitment@dunnesstores.com",
+    "applyUrl": "https://www.dunnesstores.com/b/careers",
+    "logo": null
+  },
+  {
+    "id": 104,
+    "title": "Cloud Security Architect",
+    "company": "Version 1",
+    "location": "Dublin, Ireland",
+    "salary": "€80,000 – €100,000 a year",
+    "posted": "1 day ago",
+    "applicants": "10 applicants",
+    "type": "Full-time",
+    "description": "Design and implement secure cloud architectures for enterprise clients. Expertise in Azure and AI security is highly valued.",
+    "skills": [
+      "Azure",
+      "Cloud Architecture",
+      "AI Security",
+      "Consulting"
+    ],
+    "applyUrl": "https://www.version1.com/careers/",
+    "logo": null
+  },
+  {
+    "id": 105,
+    "title": "Security Engineer",
+    "company": "Rapid7",
+    "location": "Dublin, Ireland",
+    "salary": "€65,000 – €85,000 a year",
+    "posted": "2 days ago",
+    "applicants": "25 applicants",
+    "type": "Full-time",
+    "description": "Build and maintain security solutions. Join a team focused on making the digital world a safer place.",
+    "skills": [
+      "Application Security",
+      "DevSecOps",
+      "Go",
+      "AWS"
+    ],
+    "applyUrl": "https://www.rapid7.com/careers/",
+    "logo": null
   }
 ]
