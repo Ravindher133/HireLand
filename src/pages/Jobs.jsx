@@ -1,65 +1,47 @@
 import React, { useState } from 'react';
-import { MapPin, Bookmark, MessageSquare, Share2, ExternalLink, Check, X, ChevronDown, Flag, User, Building2 } from 'lucide-react';
+import { MapPin, Bookmark, MessageSquare, Share2, ExternalLink, Check, X, ChevronDown, Flag, User, Building2, Mail } from 'lucide-react';
 
 // DUMMY DATA
-const JOB_DATA = [
-    {
-        id: 1,
-        title: "Cyber Security Intern",
-        company: "TechSecure Solutions",
-        location: "Dublin, Ireland (Hybrid)",
-        salary: "₹8,086 – ₹20,000 a month",
-        posted: "2 hours ago",
-        applicants: "25+ applicants",
-        type: "Internship",
-        description: "Assist in vulnerability assessments and network security monitoring. Great opportunity for students.",
-        skills: ["Vulnerability assessment", "Research", "Network security", "Python", "Linux"],
-        logo: null
-    },
-    {
-        id: 2,
-        title: "Junior Security Analyst",
-        company: "Global Cyber Defense",
-        location: "Cork, Ireland (Remote)",
-        salary: "€35,000 – €45,000 a year",
-        posted: "5 hours ago",
-        applicants: "10+ applicants",
-        type: "Full-time",
-        description: "Monitor security alerts, investigate incidents, and help improve our SOC procedures.",
-        skills: ["SIEM", "Incident Response", "Firewalls", "TCP/IP"],
-        logo: null
-    },
-    {
-        id: 3,
-        title: "Network Security Engineer",
-        company: "FinTech Corp",
-        location: "Galway, Ireland",
-        salary: "€55,000 – €70,000 a year",
-        posted: "1 day ago",
-        applicants: "45+ applicants",
-        type: "Full-time",
-        description: "Design and implement secure network architectures. Manage firewalls and VPNs.",
-        skills: ["Cisco", "Palo Alto", "VPN", "Network Design"],
-        logo: null
-    },
-    {
-        id: 4,
-        title: "Information Security Officer",
-        company: "HealthData Systems",
-        location: "Limerick, Ireland",
-        salary: "€60,000 – €80,000 a year",
-        posted: "2 days ago",
-        applicants: "8 applicants",
-        type: "Contract",
-        description: "Oversee information security policies and ensure compliance with GDPR and HIPAA.",
-        skills: ["GDPR", "Risk Management", "ISO 27001", "Auditing"],
-        logo: null
-    }
-];
+// Data fetched from public/data/jobs.json
 
 const Jobs = () => {
-    const [selectedJobId, setSelectedJobId] = useState(1);
-    const selectedJob = JOB_DATA.find(job => job.id === selectedJobId) || JOB_DATA[0];
+    const [jobs, setJobs] = useState([]);
+    const [selectedJobId, setSelectedJobId] = useState(null);
+    const [lastUpdated, setLastUpdated] = useState(Date.now());
+
+    // Fetch jobs on mount and poll every 5 seconds
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                const response = await fetch('/data/jobs.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    setJobs(data);
+
+                    // If no job is selected or the selected job is no longer in the list, select the first one
+                    // We only do this on initial load to avoid jumping around
+                }
+            } catch (error) {
+                console.error("Failed to fetch jobs:", error);
+            }
+        };
+
+        fetchJobs();
+        const interval = setInterval(fetchJobs, 5000); // Poll every 5 seconds
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // Initial selection
+    useEffect(() => {
+        if (jobs.length > 0 && selectedJobId === null) {
+            setSelectedJobId(jobs[0].id);
+        }
+    }, [jobs, selectedJobId]);
+
+    const selectedJob = jobs.find(job => job.id === selectedJobId) || jobs[0];
+
+    if (!selectedJob) return <div className="p-10 text-center">Loading jobs...</div>;
 
     return (
         <div className="min-h-screen bg-[#f3f4f6] pt-16 md:pt-20 pb-10">
@@ -73,7 +55,7 @@ const Jobs = () => {
                             <h1 className="text-xl font-bold text-slate-900">cyber security internship jobs</h1>
                             <div className="flex items-center justify-between mt-2 text-sm text-slate-500">
                                 <p>
-                                    <span className="text-green-600 font-medium">25+ new jobs</span>
+                                    <span className="text-green-600 font-medium">{jobs.length} jobs available</span>
                                 </p>
                                 <div className="flex items-center gap-1 cursor-pointer hover:text-slate-900">
                                     <span>Sort by: <span className="font-semibold text-slate-700">Relevance</span></span>
@@ -84,7 +66,7 @@ const Jobs = () => {
 
                         {/* List */}
                         <div className="overflow-y-auto flex-1 bg-white md:rounded-b-lg custom-scrollbar">
-                            {JOB_DATA.map((job) => (
+                            {jobs.map((job) => (
                                 <div
                                     key={job.id}
                                     onClick={() => setSelectedJobId(job.id)}
@@ -163,13 +145,27 @@ const Jobs = () => {
                                 </div>
 
                                 <div className="flex gap-3">
-                                    <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-all shadow-sm flex items-center gap-2">
+                                    <a
+                                        href={selectedJob.applyUrl || '#'}
+                                        target={selectedJob.applyUrl?.startsWith('http') ? "_blank" : "_self"}
+                                        rel="noopener noreferrer"
+                                        className={`px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-all shadow-sm flex items-center gap-2 ${!selectedJob.applyUrl ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    >
                                         Apply Now <ExternalLink className="w-4 h-4" />
-                                    </button>
+                                    </a>
                                     <button className="px-6 py-2.5 bg-white border border-blue-600 text-blue-600 font-semibold rounded-full hover:bg-blue-50 transition-all">
                                         Save
                                     </button>
                                 </div>
+
+                                {selectedJob.hrEmail && (
+                                    <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200 inline-block">
+                                        <p className="text-sm text-slate-500 mb-1 font-medium">Recruiter Contact:</p>
+                                        <a href={`mailto:${selectedJob.hrEmail}`} className="text-sm font-bold text-blue-600 hover:underline flex items-center gap-2">
+                                            <Mail className="w-4 h-4" /> {selectedJob.hrEmail}
+                                        </a>
+                                    </div>
+                                )}
                             </div>
 
                             <hr className="my-8 border-gray-100" />

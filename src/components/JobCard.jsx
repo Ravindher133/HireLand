@@ -55,12 +55,20 @@ const JobCard = ({ job, isNew }) => {
                 <span className="text-xs text-slate-400 font-medium flex items-center">
                     <Clock className="w-3 h-3 mr-1" /> {timeString} ago
                 </span>
-                <a
-                    href={job.url}
-                    className="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1 group"
-                >
-                    Apply Now <ExternalLink className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
+                <div className="flex flex-col items-end gap-1">
+                    <a
+                        href={job.applyUrl || job.url || '#'}
+                        target={job.applyUrl?.startsWith('http') || job.url?.startsWith('http') ? "_blank" : "_self"}
+                        className="text-xs font-bold text-white bg-primary-600 hover:bg-primary-700 px-3 py-1.5 rounded-full flex items-center gap-1 group shadow-sm transition-all"
+                    >
+                        Apply Now <ExternalLink className="w-3 h-3 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+                    {job.hrEmail && (
+                        <span className="text-[10px] text-slate-400 font-medium">
+                            HR: <a href={`mailto:${job.hrEmail}`} className="hover:text-primary-600 hover:underline">{job.hrEmail}</a>
+                        </span>
+                    )}
+                </div>
             </div>
         </div>
     );
